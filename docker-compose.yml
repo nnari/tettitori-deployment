@@ -29,6 +29,7 @@ services:
       - "./ui-logs:/opt/tettitori-ui/logs"
     environment:
       SERVER_PROXY_URL: ${SERVER_PROXY_URL}
+      USE_SERVER_PROXY: ${USE_SERVER_PROXY}
     networks:
       - mynet
 
