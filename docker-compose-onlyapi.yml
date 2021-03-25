@@ -19,20 +19,6 @@ services:
       - "./api-logs:/opt/tettitori-api/logs"
     networks:
       - mynet
-
-  tettitori-ui:
-    container_name: tettitori-ui
-    build: ./tettitori-ui
-    ports:
-      - "80:3000"
-    volumes:
-      - "./ui-logs:/opt/tettitori-ui/logs"
-    environment:
-      SERVER_PROXY_URL: http://tettitori-api:8080/api
-      USE_SERVER_PROXY: true
-    networks:
-      - mynet
-
   mongodb:
     container_name: mongodb
     image: mongo
