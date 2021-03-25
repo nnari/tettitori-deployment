@@ -1,0 +1,6 @@
+[submodule "tettitori-api"]
+	path = tettitori-api
+	url = https://github.com/nnari/tettitori-api
+[submodule "tettitori-ui"]
+	path = tettitori-ui
+	url = https://github.com/nnari/tettitori-ui
