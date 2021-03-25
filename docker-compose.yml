@@ -1,0 +1,53 @@
+version: "3"
+services:
+  reverse-proxy:
+    container_name: reverse-proxy
+    hostname: reverse-proxy
+    build: ./nginx-proxy
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - tettitori-api
+      - tettitori-ui
+    networks:
+      - mynet
+  tettitori-api:
+    container_name: tettitori-api
+    build: ./tettitori-api
+    ports:
+      - "3001:3001"
+    environment:
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_URL: mongodb://mongodb:27017
+    depends_on:
+      - mongodb
+    volumes:
+      - "./attachments:/opt/tettitori-api/attachments"
+      - "./api-logs:/opt/tettitori-api/logs"
+    networks:
+      - mynet
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - "27017:27107"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - "./mongodb:/data/db"
+    networks:
+      - mynet
+  tettitori-ui:
+    container_name: tettitori-ui
+    build: ./tettitori-ui
+    ports:
+      - "3000:80"
+    volumes:
+      - "./ui-logs:/opt/tettitori-ui/logs"
+    networks:
+      - mynet
+networks:
+  mynet:
