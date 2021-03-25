@@ -27,6 +27,8 @@ services:
       - "80:3000"
     volumes:
       - "./ui-logs:/opt/tettitori-ui/logs"
+    ENVIRONMENT:
+      REACT_APP_API_URL: "http://tettitori-api:8080/api"
     networks:
       - mynet
 
